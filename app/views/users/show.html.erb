@@ -1,0 +1,39 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        プロフィール
+        <%= link_to "アカウント", account_user_path(@user), class: "button is-warning is-light" %>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+          <div class="field">
+            <p class = "is-size-4" style= "font-family: monospace" >プロフィール画像</p>
+            <figure class="image is-64x64"  style="margin-left">
+              <%= attachment_image_tag @user, :profile_image, fallback: "no-image.png", class: "profile_image is-rounded" %>
+            </figure>
+          </div>
+
+          <div class="field">
+            <p class = "is-size-4" style= "font-family: monospace">ユーザー名</p>
+            <%= @user.username %>
+          </div>
+
+          <div class="field">
+            <p class = "is-size-4" style= "font-family: monospace">プロフィール</p>
+            <%= @user.profile %>
+          </div>
+
+          <div>
+            <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        施設詳細
+      </hi>
+    </div>
+    <div class="columns is-centered">
+      <%= form_with(url: search_rooms_path, local: true, method: :get ) do |f| %>
+        <div class="is-size-3">
+          <%= f.text_field :search_area, placeholder: "エリア名を入力" , class: "input" %>
+          <%= f.text_field :search_keyword, placeholder: "キーワード名を入力", class: "input" %>
+        </div>
+        <div class="has-text-right">
+          <%= f.submit "検索" , class: "button is-link" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<% if flash[:alert_blank] %>
+  <div class="notification is-danger">
+    <p class="notice"><%= flash[:alert_blank] %></p>
+  </div>
+<% end %>
+
+<% if flash[:alert_today] %>
+  <div class="notification is-danger">
+    <p class="notice"><%= flash[:alert_today] %></p>
+  </div>
+<% end %>
+
+<% if flash[:alert_day] %>
+  <div class="notification is-danger">
+    <p class="notice"><%= flash[:alert_day] %></p>
+  </div>
+<% end %>
+
+<% if flash[:alert_number] %>
+  <div class="notification is-danger">
+   <p class="notice"><%= flash[:alert_number] %></p>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <%= attachment_image_tag @room, :image, fallback: "hotel.png" %>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="column is-5">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4"><%= @room.name %></p>
+                <% if @room.user.id == current_user.id %>
+                  <%= link_to "編集", edit_room_path(@room), class: "button is-info is-light" %>
+                <% end %>
+              </div>
+            </div>
+            <div class="content">
+              <%= form_with url: reservations_confirm_path do |f| %>
+                <div class="field">
+                  <%= f.label :detail, "施設詳細", class: "label" %>
+                  <%= @room.detail %>
+                </div>
+    
+                <div class="field">
+                  <%= f.label :price, "料金", class: "label" %>
+                  <%= @room.price %>
+                  <%= f.hidden_field :price, value: @room.price, readonly: true %>
+                </div>
+    
+                <div class="field">
+                  <%= f.label :adress, "住所", class: "label" %>
+                  <%= @room.adress %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :check_in, "チェックイン（必須）", class: "label"%>
+                  <%= f.date_field :check_in %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :check_out, "チェックアウト（必須）", class: "label"%>
+                  <%= f.date_field :check_out %>
+                </div>
+
+                <div class="field">
+                  <%= f.label :people, "人数", class: "label" %>
+                  <%= f.number_field :people %>
+                </div>
+
+                <%= f.hidden_field :room_id, value: @room.id %>
+
+                <%= f.submit '予約する', class: "button is-success" %>
+                <%= link_to "戻る", rooms_path, class: "button is-warning is-light" %>
+
+              <% end %>
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

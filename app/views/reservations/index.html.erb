@@ -1,0 +1,47 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        予約一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% @reservations.each do |reservation| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                  <%= attachment_image_tag reservation, :image,  fallback: "hotel.png" %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media is-size-4" style="font-family: monospace">
+                <%= reservation.room.name %>
+              </div>
+              <div class="content">
+                料金：<%= reservation.price %>円
+              </div>
+              <div class="content">
+                詳細：<%= reservation.room.detail %>
+              </div>
+              <div class="content">
+                チェックイン：<%= reservation.check_in.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="content">
+                チェックアウト：<%= reservation.check_out.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="content">
+                予約確定日時：<%= reservation.created_at.strftime('%Y/%m/%d %H:%M') %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

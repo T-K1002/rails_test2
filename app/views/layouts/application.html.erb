@@ -6,11 +6,80 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <% if flash[:notice] %>
+    <div class="notification is-info">
+      <p class="notice"><%= notice %></p>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="notification is-danger">
+      <p class="alert"><%= alert %></p>
+    </div>
+  <% end %>
+
   <body>
+    <nav class="navbar is-warning">
+      <div class="navbar-brand">
+        <%= link_to root_path, class: "navbar-item" do %>
+          <h1 class="title is-4" style="font-family: monospace ;">Travel Share</h1>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <figure class="image is-32x32">
+              <%= attachment_image_tag @user, :profile_image, fallback: "no-image.png", class: "profile_image is-rounded" %>
+            </figure>
+            <p>&nbsp;<%= "#{current_user.username}" %></p>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </div>
+        <div class="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a href="#" class="dropdown-item">
+              <%= link_to "施設の新規登録", new_room_path, class: "navbar-item is-light" %>
+            </a>
+            <hr class="dropdown-divider">
+            <a href="#" class="dropdown-item">
+              <%= link_to "予約済み一覧", reservations_path, class: "navbar-item is-light" %>
+              <%= link_to "登録済み一覧", own_rooms_path, class: "navbar-item is-light" %>
+              <%= link_to "アカウント設定", account_user_path(current_user), class: "navbar-item is-light" %>
+            </a>
+            <hr class="dropdown-divider">
+            <a href="#" class="dropdown-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "navbar-item is-light" %>
+            </a>
+          </div>
+        </div> 
+
+      <% else %>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
+              </p>
+              <p class="control">
+                <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light" %>
+              </p>
+            </div>
+         </div>
+       </div>
+
+      <% end %>
+
+    </nav>
+   
     <%= yield %>
+
   </body>
+  
 </html>

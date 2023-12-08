@@ -1,0 +1,66 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        予約確認
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-7">
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+            <%= form_with model: @reservation do |f| %>
+              <div class="field">
+                <%= f.label :check_in, "チェックイン", class: "label" %>
+                <%= @reservation.check_in.strftime('%Y/%m/%d') %>
+                <%= f.hidden_field :check_in, value: @reservation.check_in %>
+              </div>
+
+              <div class="field">
+                <%= f.label :check_out, "チェックアウト", class: "label" %>
+                <%= @reservation.check_out.strftime('%Y/%m/%d') %>
+                <%= f.hidden_field :check_out, value: @reservation.check_out %>
+              </div>
+
+              <div class="field">
+                <%= f.label :day, "日数", class: "label" %>
+                <%= @day %>
+                <%= f.hidden_field :day, value: @day %>
+              </div>
+
+              <div class="field">
+                <%= f.label :people, "人数", class: "label" %>
+                <%= @reservation.people %>人
+                <%= f.hidden_field :people, value: @reservation.people %>
+              </div>
+    
+              <div class="field">
+                <%= f.label :price, "お支払い金額", class: "label" %>
+                <%= @total %>円
+                <%= f.hidden_field :price, value: @total %>
+              </div>
+
+              <%= f.hidden_field :user_id, value: @user_id %>
+              <%= f.hidden_field :room_id %>
+
+
+              <%= f.submit '確定', class: "button is-success" %>
+              <%= link_to "キャンセル", :back, class: "button is-warning is-light" %>
+              
+            <% end %>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

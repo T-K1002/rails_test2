@@ -1,0 +1,58 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        施設編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @room.errors.any? %>
+  <div class="notification is-danger">
+  <% @room.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @room do |f| %>
+          <div class="field">
+            <%= f.label :name, "施設名", class: "label" %>
+            <%= f.text_field :name, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :detail, "施設詳細", class: "label" %>
+            <%= f.text_area :detail, class: "textarea" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :price, "料金", class: "label" %>
+            <%= f.number_field :price, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :adress, "住所", class: "label" %>
+            <%= f.text_field :adress, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :image, "施設画像", class: "label" %>
+            <%= f.file_field :image, class: "input" %>
+          </div>
+
+          <%= f.submit '投稿', class: "button is-success" %>
+          <%= link_to "キャンセル", :back, class: "button is-warning is-light" %>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>
+</section>

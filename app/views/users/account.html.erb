@@ -1,0 +1,33 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        アカウント
+      </hi>
+        <%= link_to "プロフィール", user_path(@user), class: "button is-warning is-light " %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+          <div class="field">
+            <p class = "is-size-4" style= "font-family: monospace" >メールアドレス</p>
+            <%= @user.email %>
+          </div>
+
+          <div class="field">
+            <p class = "is-size-4" style= "font-family: monospace">パスワード</p>
+            <p>********</p>
+          </div>
+
+          <div>
+            <%= link_to "編集", edit_user_registration_path(@user), class: "button is-primary" %>
+          </div>     
+      </div>
+    </div>
+  </div>
+</section>
+
